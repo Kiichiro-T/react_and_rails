@@ -10,6 +10,7 @@ class TodoItem extends React.Component {
     super(props);
     this.state = {
       complete: this.props.todoItem.complete,
+      like: this.props.todoItem.like,
     };
     this.handleChange = this.handleChange.bind(this);
     this.updateTodoItem = this.updateTodoItem.bind(this);
@@ -20,7 +21,8 @@ class TodoItem extends React.Component {
   }
   handleChange() {
     this.setState({
-      complete: this.completedRef.current.checked
+      complete: this.completedRef.current.checked,
+      like: !(this.state.like)
     });
     this.updateTodoItem();
   }
@@ -30,7 +32,8 @@ class TodoItem extends React.Component {
       .put(this.path, {
         todo_item: {
           title: this.inputRef.current.value,
-          complete: this.completedRef.current.checked
+          complete: this.completedRef.current.checked,
+          like: this.state.like,
         }
       })
       .then(() => {
@@ -58,7 +61,7 @@ class TodoItem extends React.Component {
     const { todoItem } = this.props
     return (
       <tr
-        className={`${this.state.complete && this.props.hideCompletedTodoItems ? `d-none` : ""} ${this.state.complete ? 'table-light' : ''}`}
+        className={`${(this.state.complete && this.props.hideCompletedTodoItems) || (this.state.like && this.props.hideLikedTodoItems) ? `d-none` : ""} ${this.state.complete || this.state.like ? 'table-light' : ''}`}
       >
         <td>
           <svg
@@ -96,6 +99,22 @@ class TodoItem extends React.Component {
         </td>
         <td className="text-right">
           <div className="form-check form-check-inline">
+            <svg
+              className={`bi bi-heart-fill ${
+                this.state.like ? `text-danger` : ``
+              }`}
+              onClick={this.handleChange}
+              id={`like-${todoItem.id}`}
+              width="2em"
+              height="2em"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                fillRule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+              />
+            </svg>
             <input
               type="boolean"
               defaultChecked={this.state.complete}
@@ -130,5 +149,6 @@ TodoItem.propTypes = {
   todoItem: PropTypes.object.isRequired,
   getTodoItems: PropTypes.func.isRequired,
   hideCompletedTodoItems: PropTypes.bool.isRequired,
+  hideLikedTodoItems: PropTypes.bool.isRequired,
   clearErrors: PropTypes.func.isRequired
 }

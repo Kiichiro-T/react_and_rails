@@ -5,9 +5,13 @@ class TodoItems extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClick2 = this.handleClick2.bind(this);
   }
   handleClick() {
     this.props.toggleCompletedTodoItems()
+  }
+  handleClick2() {
+    this.props.toggleLikedTodoItems()
   }
   render() {
     return (
@@ -20,6 +24,14 @@ class TodoItems extends React.Component {
           {this.props.hideCompletedTodoItems
             ? `Show Completed Items`
             : `Hide Completed Items`}
+        </button>
+        <button
+          className="btn btn-outline-primary btn-block mb-3"
+          onClick={this.handleClick2}
+        >
+          {this.props.hideLikedTodoItems
+            ? `Show Liked Items`
+            : `Hide Liked Items`}
         </button>
         <div className="table-responsive">
           <table className="table">
@@ -44,5 +56,7 @@ export default TodoItems
 
 TodoItems.propTypes = {
   toggleCompletedTodoItems: PropTypes.func.isRequired,
+  toggleLikedTodoItems: PropTypes.func.isRequired,
   hideCompletedTodoItems: PropTypes.bool.isRequired,
+  hideLikedTodoItems: PropTypes.bool.isRequired,
 }

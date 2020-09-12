@@ -16,12 +16,14 @@ class TodoApp extends React.Component {
     this.state = {
       todoItems: [],
       hideCompletedTodoItems: false,
+      hideLikedTodoItems: false,
       isLoading: true,
       errorMessage: null
     };
     this.getTodoItems = this.getTodoItems.bind(this);
     this.createTodoItem = this.createTodoItem.bind(this);
     this.toggleCompletedTodoItems = this.toggleCompletedTodoItems.bind(this);
+    this.toggleLikedTodoItems = this.toggleLikedTodoItems.bind(this);
     this.handleErrors = this.handleErrors.bind(this);
     this.clearErrors = this.clearErrors.bind(this);
   }
@@ -56,6 +58,11 @@ class TodoApp extends React.Component {
       hideCompletedTodoItems: !this.state.hideCompletedTodoItems
     });
   }
+  toggleLikedTodoItems() {
+    this.setState({
+      hideLikedTodoItems: !this.state.hideLikedTodoItems
+    });
+  }
   handleErrors(errorMessage) {
     this.setState({ errorMessage });
   }
@@ -80,6 +87,8 @@ class TodoApp extends React.Component {
           <TodoItems
             toggleCompletedTodoItems={this.toggleCompletedTodoItems}
             hideCompletedTodoItems={this.state.hideCompletedTodoItems}
+            toggleLikedTodoItems={this.toggleLikedTodoItems}
+            hideLikedTodoItems={this.state.hideLikedTodoItems}
           >
             {this.state.todoItems.map(todoItem => (
               <TodoItem
@@ -87,6 +96,7 @@ class TodoApp extends React.Component {
                 todoItem={todoItem}
                 getTodoItems={this.getTodoItems}
                 hideCompletedTodoItems={this.state.hideCompletedTodoItems}
+                hideLikedTodoItems={this.state.hideLikedTodoItems}
                 handleErrors={this.handleErrors}
                 clearErrors={this.clearErrors}
               />
