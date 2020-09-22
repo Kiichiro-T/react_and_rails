@@ -1,0 +1,15 @@
+<h1>Address App</h1>
+
+<%= form_with model: @address, url: addresses_path, local: true do |f| %>
+  <div id="address-app"></div>
+  <%#= f.text_field :postcode, autocomplete: "postal-code", placeholder: '郵便番号（必須）' %>
+  <%#= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { include_blank: "都道府県を選択（必須）" }, { autocomplete: "address-level1" } %>
+  <%#= f.text_field :address_city, autocomplete: "address-level2", placeholder: "市区町村・番地（必須）" %>
+  <%#= f.text_field :address_building, autocomplete: "address-line1", placeholder: "建物名・号室" %>
+  <%= f.submit 'レジへ進む', data: { disable_with: "処理中..." } %>
+<% end %>
+
+<h2>アドレス</h2>
+<% @addresses.each do |address| %>
+  <p><%= address.address_city %></p>
+<% end %>

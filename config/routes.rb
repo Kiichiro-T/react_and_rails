@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   end
   root 'pages#home'
   resources :comments, only: %i[index]
+  resources :addresses, only: %i[new create]
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :todo_items, only: [:index, :show, :create, :update, :destroy]
       resources :comments, only: %i[index]
+      resources :addresses, only: %i[index]
     end
   end
 end
