@@ -18,6 +18,7 @@ require("channels")
 require('./components/comments/CommentApp')
 require('./components/addresses/AddressApp')
 require('./components/guests/GuestApp')
+require('./components/routers/client')
 require('./components/TodoApp')
 require('bootstrap')
 import 'bootstrap/dist/css/bootstrap'
