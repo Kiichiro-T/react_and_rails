@@ -13,6 +13,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Zoom from '@material-ui/core/Zoom';
 
 import Share from './Share';
+import BottomNav from './BottomNav';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +83,7 @@ const App = (props) => {
               .join('\n')}
         </Box>
       </Container>
+      <BottomNav />
       <ScrollTop {...props}>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
