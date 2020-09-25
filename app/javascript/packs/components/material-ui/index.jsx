@@ -8,6 +8,7 @@ import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 
 import App from './App';
+import TopNavigation from './TopNavigation';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,6 +23,7 @@ const theme = createMuiTheme({
 document.addEventListener('turbolinks:load', () => {
   ReactDOM.render(
     <ThemeProvider theme={theme}>
+      <TopNavigation />
       <App />
     </ThemeProvider>,
     document.getElementById('material-ui-app'));

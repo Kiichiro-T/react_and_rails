@@ -1,13 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Fab from '@material-ui/core/Fab';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Zoom from '@material-ui/core/Zoom';
 
 import Share from './Share';
 
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
   button: {
     backgroundColor: theme.status.danger
   },
@@ -22,19 +35,59 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const App = () => {
+function ScrollTop(props) {
+  const { children, window } = props;
   const classes = useStyles();
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
-    <div>
-      <Button variant="contained" color="primary">primary</Button>
-      <Button variant="contained" className={classes.button}>
-        danger
-      </Button>
-      <Typography className={classes.msg}>
-        これは<span>テスト</span>です
-      </Typography>
-      <Share />
-    </div>
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role="presentation" className={classes.root}>
+        {children}
+      </div>
+    </Zoom>
+  )
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func,
+};
+
+const App = (props) => {
+  return (
+    <>
+      <Toolbar id="back-to-top-anchor" />
+      <Container>
+        <Box my={2}>
+        {[...new Array(12)]
+              .map(
+                () => `Cras mattis consectetur purus sit amet fermentum.
+                      Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                      Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                      Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+              )
+              .join('\n')}
+        </Box>
+      </Container>
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
+    </>
   );
 }
 
