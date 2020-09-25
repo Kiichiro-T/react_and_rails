@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -14,6 +13,7 @@ import Zoom from '@material-ui/core/Zoom';
 
 import Share from './Share';
 import BottomNav from './BottomNav';
+import Form from './Form';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
+
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -72,16 +73,7 @@ const App = (props) => {
     <>
       <Toolbar id="back-to-top-anchor" />
       <Container>
-        <Box my={2}>
-        {[...new Array(12)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-                      Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                      Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                      Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-              )
-              .join('\n')}
-        </Box>
+        <Form />
       </Container>
       <BottomNav />
       <ScrollTop {...props}>

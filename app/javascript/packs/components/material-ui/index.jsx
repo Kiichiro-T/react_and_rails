@@ -9,7 +9,6 @@ import green from '@material-ui/core/colors/green';
 
 import App from './App';
 import TopNavigation from './TopNavigation';
-import BottomNav from './BottomNav';
 
 const theme = createMuiTheme({
   palette: {
