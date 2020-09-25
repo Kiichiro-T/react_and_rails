@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'material_ui/pages'
   devise_for :users
   authenticated :user do
     root 'pages#my_todo_items', as: :authenticated_root
