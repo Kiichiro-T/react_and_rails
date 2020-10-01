@@ -15,6 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 
 // import DateForm from './DateForm'
+import PayjpForm from './PayjpForm'
 
 const currencies = [
   {
@@ -160,6 +161,7 @@ export default function Form() {
         クリック
       </Button>
       {/* <DateForm /> */}
+      <PayjpForm />
     </form>
   )
 }
